@@ -1,0 +1,62 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/defaultLayout}">
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Customers</title>
+    </head>
+	
+	<body>
+		<div layout:fragment="content">
+			
+			<!-- Container -->
+			<div class="container-sm">
+				<table style="width:100%;">
+					<!-- Head -->
+					<thead>
+						<tr>
+							<th style="text-align:center;">Customer ID</th>
+							<th style="text-align:center;">Name</th>
+							<th style="text-align:center;">Email</th>
+							<th style="text-align:center;">Join Date</th>
+						</tr>
+					</thead>
+					
+					<!-- Body -->
+					<tbody>
+						<!-- Is Empty -->
+						<tr th:if="${customers.empty}">
+							<td>No registered customers.</td>
+						</tr>
+						<!-- Has Entries -->
+						<tr th:each="customer : ${customers}">
+							<td style="text-align:center;"><span th:text="${customer.customer_id}">Customer ID</span></td>
+							<td style="text-align:center;"><span th:text="${customer.name}">Name</span></td>
+							<td style="text-align:center;"><span th:text="${customer.email}">Email</span></td>
+							<td style="text-align:center;"><span th:text="${customer.join_date}">Join Date</span></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<form action="/customers/select" method="get">
+					<!-- Include the offset to preserve selection -->
+					<input type="hidden" name="offset" th:value="${offset}" />					
+							
+					<!-- Previous -->
+					<button type="submit" name="direction" value="prev" th:if="${hasPrevious}">Previous</button>
+					
+					<label>Limit:</label>
+					<select name="limit" onchange="this.form.submit()">
+						<option value="25" th:selected="${limit == 25}">25</option>
+						<option value="50" th:selected="${limit == 50}">50</option>
+						<option value="75" th:selected="${limit == 75}">75</option>
+						<option value="100" th:selected="${limit == 100}">100</option>
+					</select>
+					
+					<!-- Next -->
+					<button type="submit" name="direction" value="next" th:if="${hasNext}">Next</button>					
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

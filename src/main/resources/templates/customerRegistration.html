@@ -1,0 +1,42 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/defaultLayout}">
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Customer Registration</title>
+    </head>
+	
+	<body>
+		<div layout:fragment="content">
+			
+			<!-- Container -->
+			<div class="container-sm mt-5 flex-container">
+				<div class="flex-child">
+					<form th:action="@{doCustomerRegistration}" th:object="${customerModel}" method="post" class="needs-validation" novalidate>
+						<!-- Name -->
+						<div class="mv-3">
+							<label for="name" class="form-label">Name</label>
+							<input type="text" th:field="*{name}" placeholder="e.g. Caleb Overmyer"
+									class="form-control" data-bs-toggle="tooltip" title="Enter your first name">
+							<div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errors</div>
+						</div>
+					
+						<!-- Email -->
+						<div class="mv-3">
+							<label for="email" class="form-label">Email</label>
+							<input type="text" th:field="*{email}" placeholder="e.g. Caleb.Overmyer@gcu.edu"
+									class="form-control" data-bs-toggle="tooltip" title="Enter your email">
+							<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Errors</div>
+						</div>
+						
+						<hr/>
+						<!-- Submit -->
+						<div class="d-flex justify-content-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>			
+					</form>
+				</div>
+			</div> 
+		</div>
+	</body>
+</html>

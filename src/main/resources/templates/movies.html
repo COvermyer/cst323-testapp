@@ -1,0 +1,46 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/defaultLayout}">
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Movies</title>
+    </head>
+	
+	<body>
+		<div layout:fragment="content">
+			
+			<!-- Container -->
+			<div class="container-sm">
+				<table style="width:100%;">
+					<!-- Head -->
+					<thead>
+						<tr>
+							<th style="text-align:center;">Movie ID</th>
+							<th style="text-align:center;">Title</th>
+							<th style="text-align:center;">Release Year</th>
+							<th style="text-align:center;">Available Copies</th>
+							<th style="text-align:center;">Genre ID</th>
+						</tr>
+					</thead>
+					
+					<!-- Body -->
+					<tbody>
+						<!-- Is Empty -->
+						<tr th:if="${movies.empty}">
+							<td>No registered movies.</td>
+						</tr>
+						<!-- Has Entries -->
+						<tr th:each="movie : ${movies}">
+							<td style="text-align:center;"><span th:text="${movie.movie_id}">Movie ID</span></td>
+							<td style="text-align:center;"><span th:text="${movie.title}">Title</span></td>
+							<td style="text-align:center;"><span th:text="${movie.release_year}">Release Year</span></td>
+							<td style="text-align:center;"><span th:text="${movie.available_copies}">Available Copies</span></td>
+							<td style="text-align:center;"><span th:text="${movie.genre_id}">Genre ID</span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</body>
+</html>

@@ -1,0 +1,18 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/defaultLayout}">
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Home</title>
+    </head>
+	
+	<body>
+		<div layout:fragment="content">
+			<div class="container-sm mt-5 flex-container">
+				<h1>Oops, something went wrong...</h1>
+				<hr/>
+				<a th:href="@{/home}">Back Home</a>
+			</div>
+		</div>
+	</body>
+</html>

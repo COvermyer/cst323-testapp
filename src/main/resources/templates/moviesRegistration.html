@@ -1,0 +1,59 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layouts/defaultLayout}">
+	<head>
+    	<meta charset="UTF-8">
+    	<title>Movie Registration Registration</title>
+    </head>
+	
+	<body>
+		<div layout:fragment="content">
+			
+			<!-- Container -->
+			<div class="container-sm mt-5 flex-container">
+				<div class="flex-child">
+					<form th:action="@{doMovieRegistration}" th:object="${movieModel}" method="post" class="needs-validation" novalidate>
+						<!-- Movie Title -->
+						<div class="mv-3">
+							<label for="title" class="form-label">Movie Title</label>
+							<input type="text" th:field="*{title}" placeholder="e.g. Star Wars"
+									class="form-control" data-bs-toggle="tooltip" title="Enter a movie title">
+							<div class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Errors</div>
+						</div>
+						
+						<!-- Release Year -->
+						<div class="mv-3">
+							<label for="release_year" class="form-label">Release Year</label>
+							<input type="number" th:field="*{release_year}" placeholder="e.g. 1977" min="1900" max="2099" value="2000"
+									class="form-control" data-bs-toggle="tooltip" title="Enter the year of release">
+							<div class="text-danger" th:if="${#fields.hasErrors('release_year')}" th:errors="*{release_year}">Errors</div>
+						</div>
+						
+						<!-- Available Copies -->
+						<div class="mv-3">
+							<label for="available_copies" class="form-label">Available Copies</label>
+							<input type="number" th:field="*{available_copies}" placeholder="e.g. 7" min="0" max="500"
+									class="form-control" data-bs-toggle="tooltip" title="Enter the number of available copies">
+							<div class="text-danger" th:if="${#fields.hasErrors('available_copies')}" th:errors="*{available_copies}">Errors</div>
+						</div>
+						
+						<!-- Genre -->
+						<div class="mv-3">
+							<label for="genre" class="form-label">Genre</label>
+							<select class="form-select" th:field="*{genre_id}">
+								<option th:each="g : ${genres}" th:value="${g.genre_id}" th:text="${g.genre_name}"></option>
+							</select>
+							<div class="text-danger" th:if="${#fields.hasErrors('genre_id')}" th:errors="*{genre_id}">Errors</div>
+						</div>
+						
+						<hr/>
+						<!-- Submit -->
+						<div class="d-flex justify-content-center">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>			
+					</form>
+				</div>
+			</div> 
+		</div>
+	</body>
+</html>
