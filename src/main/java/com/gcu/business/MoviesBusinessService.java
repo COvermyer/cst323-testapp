@@ -50,4 +50,18 @@ public class MoviesBusinessService implements MoviesBusinessServiceInterface {
 		return deleteMovie(movie.getMovie_id());
 	}
 
+	@Override
+	public List<MovieModel> getMoviesInRange(int limit, int offset) {
+		List<MovieEntity> moviesEntities = service.findRange(limit, offset);
+		List<MovieModel> moviesDomain = new ArrayList<MovieModel>();
+		for (MovieEntity e : moviesEntities)
+			moviesDomain.add(e.toModel());
+		return moviesDomain;
+	}
+
+	@Override
+	public int getTotalMovieCount() {
+		return service.getEntityCount();
+	}
+
 }

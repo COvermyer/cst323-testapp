@@ -1,12 +1,100 @@
-.flex-container
-{
+body {
+	height: 100%;
+}
+
+
+
+.pretty-button {
+	display: inline-flex;
+	height: 30;
+	padding: 0;
+	background: rebeccapurple;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	overflow: hidden;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.pretty-button:hover {
+	background-color: #602a96;
+}
+
+.pretty-button:active {
+	background-color: #602a96;
+}
+
+.button-text, .button-icon {
+	display: inline-flex;
+	align-items: center;
+	padding: 0 5px;
+	color: #fff;
+	height: 100%;
+}
+
+.button-icon {
+	background: rgba(0, 0, 0, 0.15);
+}
+
+
+.container-table {
+	border-collapse: collapse;
+	margin: 25px 0;
+	font-size: 0.9em;
+	min-width: 400px;
+	border-radius: 5px 5px 0 0;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.container-table thead tr {
+	background-color: rebeccapurple;
+	color: #ffffff;
+	text-align: left;
+	font-weight: bold;
+}
+
+.container-table th, .container-table td {
+	padding: 12px 15px;
+}
+
+.container-table tbody tr {
+	border-bottom: 1px solid #dddddd;
+}
+
+.container-table tbody tr:nth-of-type(even) {
+	background-color: #f3f3f3;
+}
+
+.container-table tbody tr:last-of-type {
+	border-bottom: 2px solid rebeccapurple;
+}
+
+.container-table tbody tr:hover {
+	background-color: #e3e3e3;
+}
+
+.flex-container {
 	border: 2.5px solid #E7E7E7;
 	border-radius: 8px;
 	background-color: #FDFDFD;
 	width: 70%;
 }
 
-.flex-child
-{
+.flex-child {
 	padding: 20px;
+}
+
+.footer {
+	background-color: rgba(0, 0, 0, 0.05);
+	bottom: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.footer-content {
+	padding: 10px;
 }

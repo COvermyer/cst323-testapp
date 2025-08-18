@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gcu.business.GenresBusinessServiceInterface;
 import com.gcu.business.MoviesBusinessServiceInterface;
@@ -28,11 +29,30 @@ public class MoviesController {
 	@Autowired
 	GenresBusinessServiceInterface genresService;
 	
-	@GetMapping("/all")
-	public String displayMovies(Model model)
+	@GetMapping("/select")
+	public String handleSelection(@RequestParam int limit, @RequestParam(defaultValue = "0") int offset, @RequestParam(required = false) String direction)
 	{
-		model.addAttribute("title", "Movies");
-		model.addAttribute("movies", moviesService.getMovies());
+		int newOffset = offset;
+		if("next".equals(direction))
+		{
+			newOffset += limit;
+		}
+		else if ("prev".equals(direction))
+			newOffset = Math.max(0, offset - limit); // Prevent negative offset
+		
+		return "redirect:/movies/display?limit=" + limit + "&offset=" + newOffset;
+	}
+	
+	@GetMapping("/display")
+	public String displayMovies(@RequestParam(defaultValue = "25") int limit, @RequestParam(defaultValue = "0") int offset, Model model)
+	{
+		model.addAttribute("title", "Registered Movies");
+		model.addAttribute("limit", limit);
+		model.addAttribute("offset", offset);
+		model.addAttribute("hasPrevious", offset > 0);
+		model.addAttribute("hasNext", (offset + limit < moviesService.getTotalMovieCount()));
+		model.addAttribute("movies", moviesService.getMoviesInRange(limit, offset));
+		
 		return "movies";
 	}
 	

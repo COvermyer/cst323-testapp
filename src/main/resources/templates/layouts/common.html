@@ -33,7 +33,7 @@
 						        Genres
 						    </a>
 						    <ul class="dropdown-menu" aria-labelledby="genresDropdown">
-						        <li><a class="dropdown-item" th:href="@{/genres/all}">All Genres</a></li>
+						        <li><a class="dropdown-item" th:href="@{/genres/display}">All Genres</a></li>
 						        <li><a class="dropdown-item" th:href="@{/genres/new}">New Genres</a></li>
 						    </ul>
 						</li>
@@ -45,7 +45,7 @@
 						        Movies
 						    </a>
 						    <ul class="dropdown-menu" aria-labelledby="moviesDropdown">
-						        <li><a class="dropdown-item" th:href="@{/movies/all}">All Movies</a></li>
+						        <li><a class="dropdown-item" th:href="@{/movies/display}">All Movies</a></li>
 						        <li><a class="dropdown-item" th:href="@{/movies/new}">New Movies</a></li>
 						    </ul>
 						</li>
@@ -60,7 +60,10 @@
 
 	
 	<!-- Common Footer fragment -->
-		<div th:fragment="footer">
-			<h5 style="color: #522398; text-align: conter; position: fixed; bottom: 0; width: 100%;">Caleb Overmyer</h5>
+	<div th:fragment="footer" class="footer">
+		<div class="footer-content">
+			<span>Caleb Overmyer</span>
+			<h6>CST-323</h6>
 		</div>
+	</div>
 </html>

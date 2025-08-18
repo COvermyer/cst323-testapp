@@ -79,14 +79,20 @@ public class GenresDataService implements DataAccessInterface<GenreEntity> {
 
 	@Override
 	public List<GenreEntity> findRange(int limit, int offset) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM genres LIMIT ? OFFSET ?";
+		List<GenreEntity> results = new ArrayList<GenreEntity>();
+		try {
+			Iterable<GenreEntity> genresIterable = jdbcTemplate.query(sql, new GenreRowMapper(), limit, offset);
+			genresIterable.forEach(results::add);
+		} catch (DataAccessException d) { d.printStackTrace(); }
+		catch (Exception e) { e.printStackTrace(); }
+		return results;
 	}
 
 	@Override
 	public int getEntityCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "SELECT COUNT(*) FROM genres WHERE 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
 }

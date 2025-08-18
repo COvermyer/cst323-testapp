@@ -79,14 +79,20 @@ public class MoviesDataService implements DataAccessInterface<MovieEntity> {
 
 	@Override
 	public List<MovieEntity> findRange(int limit, int offset) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM movies LIMIT ? OFFSET ?";
+		List<MovieEntity> results = new ArrayList<MovieEntity>();
+		try {
+			Iterable<MovieEntity> moviesIterable = jdbcTemplate.query(sql, new MovieRowMapper(), limit, offset);
+			moviesIterable.forEach(results::add);
+		} catch (DataAccessException d) { d.printStackTrace(); }
+		catch (Exception e) { e.printStackTrace(); }
+		return results;
 	}
 
 	@Override
 	public int getEntityCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "SELECT COUNT(*) FROM movies WHERE 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
 }

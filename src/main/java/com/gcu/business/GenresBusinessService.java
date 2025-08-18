@@ -50,4 +50,18 @@ public class GenresBusinessService implements GenresBusinessServiceInterface {
 		return deleteGenre(genre.getGenre_id());
 	}
 
+	@Override
+	public List<GenreModel> getGenresInRange(int limit, int offset) {
+		List<GenreEntity> genresEntities = service.findRange(limit, offset);
+		List<GenreModel> genresDomain = new ArrayList<GenreModel>();
+		for (GenreEntity e : genresEntities)
+			genresDomain.add(e.toModel());
+		return genresDomain;
+	}
+
+	@Override
+	public int getTotalGenreCount() {
+		return service.getEntityCount();
+	}
+
 }

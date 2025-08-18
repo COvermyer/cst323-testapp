@@ -11,7 +11,7 @@
 			
 			<!-- Container -->
 			<div class="container-sm">
-				<table style="width:100%;">
+				<table class="container-table">
 					<!-- Head -->
 					<thead>
 						<tr>
@@ -43,7 +43,10 @@
 					<input type="hidden" name="offset" th:value="${offset}" />					
 							
 					<!-- Previous -->
-					<button type="submit" name="direction" value="prev" th:if="${hasPrevious}">Previous</button>
+					<button type="submit" name="direction" value="prev" th:if="${hasPrevious}" class="pretty-button">
+						<span class="button-icon"><</span>
+						<span class="button-text">Previous</span>						
+					</button>
 					
 					<label>Limit:</label>
 					<select name="limit" onchange="this.form.submit()">
@@ -54,7 +57,10 @@
 					</select>
 					
 					<!-- Next -->
-					<button type="submit" name="direction" value="next" th:if="${hasNext}">Next</button>					
+					<button type="submit" name="direction" value="next" th:if="${hasNext}" class="pretty-button">
+						<span class="button-text">Next</span>
+						<span class="button-icon">></span>						
+					</button>					
 				</form>
 			</div>
 		</div>
