@@ -1,15 +1,57 @@
-<configuration>
-  <appender name="CLOUDWATCH" class="com.github.danielwegener.logback.aws.CloudWatchAppender">
-    <logStreamName>my-app-log-stream</logStreamName>
-    <logGroupName>my-app-log-group</logGroupName>
-    <region>us-west-2</region>
-    <awsAccessKeyId>AKIASCWGGPN7R6LTALVH</awsAccessKeyId>
-    <awsSecretKey>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</awsSecretKey>
-    <encoder>
-      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
-  <root level="INFO">
-    <appender-ref ref="CLOUDWATCH"/>
-  </root>
+<configuration scan="true">
+
+    <!-- ---------------- DEV ENVIRONMENT ---------------- -->
+    <springProfile name="dev">
+        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+
+        <root level="DEBUG">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!-- ---------------- PROD / AWS ENVIRONMENT ---------------- -->
+    <springProfile name="prod,aws">
+
+        <!-- Console JSON appender for CloudWatch -->
+        <appender name="JSON_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+                <providers>
+                    <!-- Timestamp -->
+                    <timestamp>
+                        <timeZone>UTC</timeZone>
+                    </timestamp>
+
+                    <!-- Log Level, Thread, Logger -->
+                    <logLevel/>
+                    <threadName/>
+                    <loggerName/>
+
+                    <!-- MDC Fields -->
+                    <mdc>
+                        <includeMdcKeyName>requestId</includeMdcKeyName>
+                        <includeMdcKeyName>userId</includeMdcKeyName>
+                        <includeMdcKeyName>sessionId</includeMdcKeyName>
+                    </mdc>
+
+                    <!-- Log message and exception -->
+                    <message/>
+                    <stackTrace/>
+                </providers>
+            </encoder>
+        </appender>
+
+        <!-- Suppress noisy libraries -->
+        <logger name="org.jboss.logging" level="ERROR"/>
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.hibernate" level="WARN"/>
+
+        <root level="INFO">
+            <appender-ref ref="JSON_CONSOLE"/>
+        </root>
+    </springProfile>
+
 </configuration>
